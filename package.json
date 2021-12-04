@@ -1,0 +1,32 @@
+{
+  "name": "typescript-rsa",
+  "author": "Ivan Burlakov",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^25.2.4",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  },
+  "scripts": {
+    "start": "node",
+    "tsrun": "ts-node src/index.ts",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "test": "jest --coverage",
+    "lint": "eslint \"**/*.ts\"",
+    "prettify": "prettier --write \"**/*.ts\""
+  },
+  "dependencies": {
+    "bigint-mod-arith": "^3.0.1"
+  }
+}
