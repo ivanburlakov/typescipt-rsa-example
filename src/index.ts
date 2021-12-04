@@ -1,6 +1,12 @@
 import { generatePrimeSync } from 'crypto';
 import { modInv, modPow } from 'bigint-mod-arith';
 
+interface Keys {
+  n: bigint;
+  e: bigint;
+  d: bigint;
+}
+
 function isPrime(num: bigint): boolean {
   for (let i = 2n; i < num; i++) {
     if (num % i === 0n) {
@@ -19,16 +25,16 @@ function getCoprime(t: bigint, n: bigint): bigint {
 }
 
 function encrypt(message: string, e: bigint, n: bigint): string {
-  const codes = message.split('').map((i) => i.codePointAt(0));
-  const newCodes = [];
+  const codes: number[] = message.split('').map((i) => i.codePointAt(0));
+  const newCodes: bigint[] = [];
   for (const code of codes) {
     newCodes.push(modPow(BigInt(code), e, n));
   }
   return newCodes.join('.');
 }
 
-function decrypt(encryptedMsg: string, d: bigint, n: bigint): string {
-  const codes = encryptedMsg.split('.');
+function decrypt(encryptedString: string, d: bigint, n: bigint): string {
+  const codes: string[] = encryptedString.split('.');
   let decryptedString = '';
   for (const code of codes) {
     decryptedString += String.fromCodePoint(Number(modPow(BigInt(code), d, n)));
@@ -36,18 +42,14 @@ function decrypt(encryptedMsg: string, d: bigint, n: bigint): string {
   return decryptedString;
 }
 
-function genKeys() {
-  const p = generatePrimeSync(128, { bigint: true });
-  const q = generatePrimeSync(128, { bigint: true });
+function genKeys(): Keys {
+  const p: bigint = generatePrimeSync(128, { bigint: true });
+  const q: bigint = generatePrimeSync(128, { bigint: true });
   const n: bigint = p * q;
   const t: bigint = (p - 1n) * (q - 1n);
   const e: bigint = getCoprime(t, n);
   const d: bigint = modInv(e, t);
-  return {
-    n,
-    e,
-    d,
-  };
+  return { n, e, d };
 }
 
 export { genKeys, encrypt, decrypt };
