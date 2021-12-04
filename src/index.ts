@@ -37,8 +37,8 @@ function decrypt(encryptedMsg: string, d: bigint, n: bigint): string {
 }
 
 function genKeys() {
-  const p = generatePrimeSync(32, { bigint: true });
-  const q = generatePrimeSync(32, { bigint: true });
+  const p = generatePrimeSync(128, { bigint: true });
+  const q = generatePrimeSync(128, { bigint: true });
   const n: bigint = p * q;
   const t: bigint = (p - 1n) * (q - 1n);
   const e: bigint = getCoprime(t, n);
