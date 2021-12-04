@@ -23,3 +23,19 @@ test('Japaneese', () => {
   const decrypted = decrypt(encrypted, keys.d, keys.n);
   expect(decrypted).toStrictEqual(message);
 });
+
+test('Dots', () => {
+  const keys = genKeys();
+  const message = '...';
+  const encrypted = encrypt(message, keys.e, keys.n);
+  const decrypted = decrypt(encrypted, keys.d, keys.n);
+  expect(decrypted).toStrictEqual(message);
+});
+
+test('Numbers', () => {
+  const keys = genKeys();
+  const message = '1234567890';
+  const encrypted = encrypt(message, keys.e, keys.n);
+  const decrypted = decrypt(encrypted, keys.d, keys.n);
+  expect(decrypted).toStrictEqual(message);
+});
